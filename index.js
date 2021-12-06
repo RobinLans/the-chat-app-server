@@ -12,7 +12,8 @@ const io = new Server(server, {
   cors: {
     origin:
       // process.env.CLIENT_URL ||
-      "http://localhost:3000",
+      // "http://localhost:3000",
+      "https://admiring-jang-94e13e.netlify.app",
     methods: ["GET", "POST"],
   },
 });
