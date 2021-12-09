@@ -11,7 +11,6 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin:
-      // process.env.CLIENT_URL ||
       // "http://localhost:3000",
       "https://admiring-jang-94e13e.netlify.app",
     methods: ["GET", "POST"],
@@ -20,6 +19,8 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   console.log(`User ${socket.id} connected`);
+
+  io.emit("welcome", "Hej din fitta");
 
   socket.on("join_room", (data) => {
     socket.join(data);
@@ -33,6 +34,11 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     console.log(`User ${socket.id} Disconnected`);
+  });
+
+  socket.on("new_user", (data) => {
+    console.log(data);
+    socket.to(data.room).emit("get_users", data);
   });
 });
 
